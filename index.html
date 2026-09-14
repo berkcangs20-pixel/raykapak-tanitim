@@ -1,0 +1,541 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1"><style>:root{color-scheme:light}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Raykapak Sistem</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,500;0,600;0,700;0,800;1,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+  :root{
+    color-scheme: dark;
+    --bg:#0A0D11;
+    --bg-2:#0D1116;
+    --surface:#121822;
+    --surface-2:#171F2B;
+    --ink:#EEF1F4;
+    --ink-soft:#99A3AD;
+    --ink-faint:#5D6670;
+    --line:#212934;
+    --line-soft:#191F28;
+    --accent:#3FA9C9;
+    --accent-2:#7FD1E8;
+    --accent-dim:#1F5C70;
+    --teal:#2E7A8C;
+    --shadow-lg: 0 40px 90px -40px rgba(0,0,0,0.75), 0 1px 0 rgba(255,255,255,0.03) inset;
+    --shadow-md: 0 24px 50px -28px rgba(0,0,0,0.6);
+    --mesh-1: rgba(63,169,201,0.45);
+    --mesh-2: rgba(46,122,140,0.42);
+    --mesh-3: rgba(63,169,201,0.20);
+    --nav-bg: rgba(10,13,17,0.74);
+  }
+  :root[data-theme="light"]{
+    color-scheme: light;
+    --bg:#F3F5F6; --bg-2:#EBEEF0; --surface:#FFFFFF; --surface-2:#F1F3F5;
+    --ink:#12161B; --ink-soft:#4B535A; --ink-faint:#828A91;
+    --line:#DEE3E7; --line-soft:#E7EBEE;
+    --accent:#187590; --accent-2:#2E93B0; --accent-dim:#4FA6C4;
+    --teal:#2E7A8C;
+    --shadow-lg: 0 40px 90px -50px rgba(16,26,32,0.30);
+    --shadow-md: 0 20px 40px -26px rgba(16,26,32,0.22);
+    --mesh-1: rgba(24,117,144,0.22);
+    --mesh-2: rgba(46,122,140,0.18);
+    --mesh-3: rgba(24,117,144,0.10);
+    --nav-bg: rgba(243,245,246,0.74);
+  }
+  @media (prefers-color-scheme: light){
+    :root:not([data-theme="dark"]){
+      color-scheme: light;
+      --bg:#F3F5F6; --bg-2:#EBEEF0; --surface:#FFFFFF; --surface-2:#F1F3F5;
+      --ink:#12161B; --ink-soft:#4B535A; --ink-faint:#828A91;
+      --line:#DEE3E7; --line-soft:#E7EBEE;
+      --accent:#187590; --accent-2:#2E93B0; --accent-dim:#4FA6C4;
+      --teal:#2E7A8C;
+      --shadow-lg: 0 40px 90px -50px rgba(16,26,32,0.30);
+      --shadow-md: 0 20px 40px -26px rgba(16,26,32,0.22);
+      --mesh-1: rgba(24,117,144,0.22);
+      --mesh-2: rgba(46,122,140,0.18);
+      --mesh-3: rgba(24,117,144,0.10);
+      --nav-bg: rgba(243,245,246,0.74);
+    }
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto;} }
+  body{
+    margin:0; background:var(--bg); color:var(--ink); overflow-x:hidden;
+    font-family:"IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+    font-size:16px; line-height:1.65; -webkit-font-smoothing:antialiased;
+  }
+  img{max-width:100%; display:block;}
+  h1,h2,h3{
+    font-family:"Archivo", ui-sans-serif, sans-serif; text-wrap:balance; margin:0; color:var(--ink); font-weight:600;
+  }
+  .serif{font-family:"Archivo",sans-serif;}
+  .mono{font-family:"IBM Plex Mono", ui-monospace, monospace; font-variant-numeric:tabular-nums;}
+  .wrap{max-width:1180px; margin:0 auto; padding:0 40px; position:relative;}
+  @media (max-width:720px){ .wrap{padding:0 22px;} }
+  a{color:inherit;}
+  ::selection{background:var(--accent); color:var(--bg);}
+
+  /* grain texture overlay */
+  .grain{
+    position:fixed; inset:0; z-index:5000; pointer-events:none; opacity:0.05; mix-blend-mode:overlay;
+  }
+  :root[data-theme="light"] .grain{opacity:0.035;}
+
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:10px;
+    font-family:"IBM Plex Mono",monospace; font-size:11.5px; letter-spacing:0.16em;
+    text-transform:uppercase; color:var(--accent);
+  }
+  .eyebrow::before{content:""; width:20px; height:1px; background:var(--accent); opacity:0.7;}
+
+  /* ---------- nav ---------- */
+  nav.top{
+    position:sticky; top:0; z-index:100;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:20px 40px; border-bottom:1px solid transparent;
+    background:transparent; transition:background .35s ease, border-color .35s ease, backdrop-filter .35s ease;
+  }
+  @media (max-width:720px){ nav.top{padding:18px 22px;} }
+  nav.top.scrolled{
+    background:var(--nav-bg);
+    backdrop-filter:blur(14px) saturate(140%);
+    -webkit-backdrop-filter:blur(14px) saturate(140%);
+    border-bottom-color:var(--line);
+  }
+  .word{font-family:"Archivo", sans-serif; font-size:19px; font-weight:700; letter-spacing:0.01em;}
+  .word i{font-style:italic; color:var(--accent); font-weight:600;}
+  nav.top .tag{font-family:"IBM Plex Mono",monospace; font-size:10.5px; letter-spacing:0.1em; color:var(--ink-faint); text-transform:uppercase;}
+
+  /* ---------- hero ---------- */
+  .hero-stage{position:relative; padding-top:8vh; padding-bottom:2vh; overflow:hidden;}
+  .mesh{
+    position:absolute; inset:-30% -20% 10% -20%; z-index:-1; pointer-events:none;
+    background:
+      radial-gradient(40% 50% at 20% 22%, var(--mesh-1), transparent 70%),
+      radial-gradient(36% 44% at 84% 10%, var(--mesh-2), transparent 72%),
+      radial-gradient(55% 60% at 55% 65%, var(--mesh-3), transparent 75%);
+    filter:blur(10px);
+    animation:drift 14s ease-in-out infinite alternate;
+    transform-origin:50% 50%;
+  }
+  @keyframes drift{
+    0%{transform:translate3d(-3%,-2%,0) scale(1);}
+    50%{transform:translate3d(2%,3%,0) scale(1.12);}
+    100%{transform:translate3d(-2%,4%,0) scale(1.05);}
+  }
+  @media (prefers-reduced-motion:reduce){ .mesh{animation:none; transform:scale(1.05);} }
+
+  .hero{text-align:center; padding:0 0 30px;}
+  .hero h1{
+    font-size:clamp(42px, 7.4vw, 92px); line-height:1.02; font-weight:700;
+    max-width:15ch; margin:26px auto 0;
+  }
+  .hero h1 i{
+    font-style:italic; font-weight:600; position:relative;
+    background:linear-gradient(100deg, var(--accent) 0%, var(--accent-2) 30%, var(--accent) 55%, var(--accent-2) 80%, var(--accent) 100%);
+    background-size:220% 100%;
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+    animation:shimmer 6s linear infinite;
+  }
+  @keyframes shimmer{ 0%{background-position:0% 50%;} 100%{background-position:220% 50%;} }
+  @media (prefers-reduced-motion:reduce){ .hero h1 i{animation:none; color:var(--accent); background:none;} }
+  .hero .sub{margin:28px auto 0; max-width:44ch; font-size:19px; color:var(--ink-soft); line-height:1.6;}
+
+  @keyframes riseIn{ from{opacity:0; transform:translateY(16px);} to{opacity:1; transform:translateY(0);} }
+  .hero > *{animation:riseIn .8s cubic-bezier(.19,1,.22,1) both;}
+  .hero > *:nth-child(2){animation-delay:.06s;}
+  .hero > *:nth-child(3){animation-delay:.12s;}
+  .showcase-wrap{animation:riseIn 1s cubic-bezier(.19,1,.22,1) .2s both;}
+  @media (prefers-reduced-motion:reduce){
+    .hero > *, .showcase-wrap{animation:none;}
+  }
+
+  /* ---------- showcase ---------- */
+  .showcase-wrap{padding:60px 0 0; perspective:1600px;}
+  .showcase{
+    position:relative; max-width:1000px; margin:0 auto; border-radius:18px;
+    border:1px solid var(--line); background:var(--surface); box-shadow:var(--shadow-lg);
+    overflow:hidden; transform-style:preserve-3d; transition:transform .25s ease-out;
+    will-change:transform;
+    animation:float 6s ease-in-out infinite;
+  }
+  @keyframes float{ 0%,100%{transform:translateY(0);} 50%{transform:translateY(-14px);} }
+  @media (prefers-reduced-motion:reduce){ .showcase{animation:none;} }
+  .showcase::after{
+    content:""; position:absolute; inset:0; border-radius:18px; pointer-events:none;
+    box-shadow:0 1px 0 rgba(255,255,255,0.06) inset, 0 0 0 1px rgba(255,255,255,0.02) inset;
+  }
+  .showcase img, .showcase video{width:100%; height:auto; display:block;}
+  .showcase-cap{
+    text-align:center; margin-top:16px; font-family:"IBM Plex Mono",monospace; font-size:11.5px;
+    letter-spacing:0.05em; color:var(--ink-faint);
+  }
+
+  /* ---------- stat strip ---------- */
+  .stats{padding:86px 0 64px; border-top:1px solid var(--line);}
+  .stat-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:0;}
+  @media (max-width:820px){ .stat-grid{grid-template-columns:repeat(2,1fr); row-gap:40px;} }
+  .stat{padding:0 26px; text-align:left; border-left:1px solid var(--line);}
+  .stat:first-child{border-left:none;}
+  @media (max-width:820px){ .stat:nth-child(odd){border-left:none;} }
+  .stat .n{font-family:"Archivo",sans-serif; font-size:clamp(34px,4.4vw,50px); font-weight:500; color:var(--ink);}
+  .stat .n em{color:var(--accent); font-style:normal;}
+  .stat .d{margin-top:8px; font-size:13.5px; color:var(--ink-faint); max-width:22ch; line-height:1.5;}
+
+  /* ---------- narrative ---------- */
+  .narrative{padding:30px 0 100px; border-top:1px solid var(--line);}
+  .narrative .head{max-width:52ch; margin-bottom:52px;}
+  .narrative .head h2{font-size:clamp(26px,3.6vw,38px); line-height:1.22; margin-top:18px;}
+  .n-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:36px;}
+  @media (max-width:860px){ .n-grid{grid-template-columns:1fr; gap:26px;} }
+  .n-item{
+    padding:26px 24px; border-radius:14px; background:var(--surface); border:1px solid var(--line);
+  }
+  .n-item .num{font-family:"Archivo",sans-serif; font-size:26px; color:var(--accent); display:block; margin-bottom:12px;}
+  .n-item p{margin:0; color:var(--ink-soft); font-size:14.5px; line-height:1.65;}
+
+  /* ---------- reveal ---------- */
+  .reveal{opacity:1; transform:none; transition:opacity .8s cubic-bezier(.19,1,.22,1), transform .8s cubic-bezier(.19,1,.22,1);}
+  .reveal.pre{opacity:0; transform:translateY(26px);}
+  .n-grid .reveal:nth-child(1){transition-delay:0s;}
+  .n-grid .reveal:nth-child(2){transition-delay:.08s;}
+  .n-grid .reveal:nth-child(3){transition-delay:.16s;}
+  .spec-list .reveal:nth-child(1){transition-delay:0s;}
+  .spec-list .reveal:nth-child(2){transition-delay:.06s;}
+  .spec-list .reveal:nth-child(3){transition-delay:.12s;}
+  .spec-list .reveal:nth-child(4){transition-delay:.18s;}
+  .spec-list .reveal:nth-child(5){transition-delay:.24s;}
+
+  .copy .badge{animation:pulse 2.2s ease-in-out infinite;}
+  @keyframes pulse{ 0%,100%{box-shadow:0 0 0 0 rgba(63,169,201,0.45);} 50%{box-shadow:0 0 0 6px rgba(63,169,201,0);} }
+  @media (prefers-reduced-motion:reduce){ .copy .badge{animation:none;} }
+
+  /* ---------- feature rows ---------- */
+  .feature{
+    padding:120px 0; display:grid; grid-template-columns:0.86fr 1.14fr; gap:70px; align-items:center;
+    border-top:1px solid var(--line);
+  }
+  .feature.flip{grid-template-columns:1.14fr 0.86fr;}
+  .feature.flip .plate{order:2;} .feature.flip .copy{order:1;}
+  @media (max-width:980px){
+    .feature{grid-template-columns:1fr; gap:36px; padding:64px 0;}
+    .feature.flip .plate{order:1;} .feature.flip .copy{order:2;}
+  }
+
+  .copy .eyebrow-row{display:flex; align-items:center; gap:12px; margin-bottom:20px;}
+  .copy .badge{
+    background:var(--accent); color:var(--bg); font-family:"IBM Plex Mono",monospace;
+    font-size:10px; letter-spacing:0.08em; padding:3px 9px; border-radius:20px; font-weight:600;
+  }
+  .copy h3{font-size:clamp(27px,3.2vw,36px); line-height:1.14; font-weight:700;}
+  .copy p.desc{margin-top:20px; color:var(--ink-soft); font-size:16px; max-width:42ch; line-height:1.75;}
+  .copy .points{margin:26px 0 0; padding:0; list-style:none; display:flex; flex-direction:column; gap:15px;}
+  .copy .points li{display:flex; gap:14px; font-size:14.5px; color:var(--ink-soft); align-items:flex-start; line-height:1.5;}
+  .copy .points li svg{flex:none; margin-top:2px; color:var(--accent);}
+
+  .plate{
+    position:relative; border-radius:16px; border:1px solid var(--line); background:var(--surface);
+    box-shadow:var(--shadow-md); overflow:hidden;
+    transition:transform .5s cubic-bezier(.19,1,.22,1), box-shadow .5s ease;
+  }
+  .plate:hover{transform:translateY(-6px); box-shadow:var(--shadow-lg);}
+  .plate img{width:100%; height:auto; display:block;}
+  .plate .cap{
+    padding:15px 20px; border-top:1px solid var(--line); display:flex; justify-content:space-between; gap:12px;
+    font-size:11.5px; color:var(--ink-faint); font-family:"IBM Plex Mono",monospace; letter-spacing:0.03em;
+  }
+
+  .gallery-col{display:flex; flex-direction:column; gap:14px;}
+  .mini-gallery{display:grid; grid-template-columns:1fr 1fr; gap:14px;}
+  .mini-plate{
+    border-radius:12px; border:1px solid var(--line); background:var(--surface);
+    box-shadow:var(--shadow-md); overflow:hidden;
+    transition:transform .5s cubic-bezier(.19,1,.22,1), box-shadow .5s ease;
+  }
+  .mini-plate:hover{transform:translateY(-4px); box-shadow:var(--shadow-lg);}
+  .mini-plate img{width:100%; height:auto; display:block;}
+  .mini-plate .mini-cap{
+    padding:10px 14px; border-top:1px solid var(--line);
+    font-size:11px; color:var(--ink-faint); font-family:"IBM Plex Mono",monospace; letter-spacing:0.02em;
+  }
+  @media (max-width:640px){ .mini-gallery{grid-template-columns:1fr;} }
+
+  /* ---------- formula ---------- */
+  .formula{
+    margin-top:26px; padding:20px 24px; border-radius:12px; background:var(--surface-2);
+    border:1px solid var(--line); display:flex; align-items:center; gap:14px; flex-wrap:wrap;
+  }
+  .formula .f{font-family:"Archivo",sans-serif; font-size:19px;}
+  .formula .f b{color:var(--accent); font-weight:500;}
+  .formula .f-note{font-family:"IBM Plex Mono",monospace; font-size:11px; color:var(--ink-faint);}
+
+  /* ---------- specs ---------- */
+  .specs{padding:100px 0; border-top:1px solid var(--line);}
+  .specs .head{max-width:52ch; margin-bottom:52px;}
+  .specs .head h2{font-size:clamp(26px,3.6vw,38px); margin-top:18px;}
+  .spec-list{display:grid; grid-template-columns:repeat(5,1fr); gap:18px;}
+  @media (max-width:960px){ .spec-list{grid-template-columns:repeat(2,1fr);} }
+  @media (max-width:560px){ .spec-list{grid-template-columns:1fr;} }
+  .spec-item{
+    padding:26px 20px; border-radius:14px; background:var(--surface); border:1px solid var(--line);
+    transition:border-color .3s ease, transform .3s ease;
+  }
+  .spec-item:hover{border-color:var(--accent-dim); transform:translateY(-3px);}
+  .spec-item svg{color:var(--accent); margin-bottom:16px;}
+  .spec-item .v{font-family:"Archivo",sans-serif; font-size:17.5px; font-weight:500;}
+  .spec-item .d{margin-top:7px; font-size:12.5px; color:var(--ink-faint); line-height:1.55;}
+
+  /* ---------- closing ---------- */
+  .closing{padding:130px 0 100px; text-align:center; border-top:1px solid var(--line); position:relative; overflow:hidden;}
+  .closing .mesh2{
+    position:absolute; inset:-30% -20% -10% -20%; z-index:-1; pointer-events:none;
+    background:radial-gradient(45% 50% at 50% 40%, color-mix(in oklab, var(--accent) 16%, transparent), transparent 72%);
+  }
+  .closing h2{font-size:clamp(32px,5.2vw,54px); max-width:17ch; margin:22px auto 0; line-height:1.14;}
+  .closing p{margin:24px auto 0; max-width:48ch; color:var(--ink-soft); font-size:16.5px;}
+  .closing .note{
+    margin:46px auto 0; max-width:58ch; padding:16px 22px; border:1px solid var(--line); border-radius:10px;
+    font-family:"IBM Plex Mono",monospace; font-size:11.5px; color:var(--ink-faint); background:var(--surface);
+  }
+  .contact-btn{
+    display:inline-flex; align-items:center; gap:10px; margin:38px auto 0;
+    padding:14px 26px; border-radius:999px; border:1px solid var(--accent);
+    color:var(--accent); text-decoration:none; font-family:"IBM Plex Sans",sans-serif;
+    font-size:14.5px; font-weight:600; transition:background .15s ease,color .15s ease;
+  }
+  .contact-btn:hover{background:var(--accent); color:var(--bg);}
+  .contact-btn svg{flex:none;}
+
+  footer.site{
+    border-top:1px solid var(--line); padding:32px 0 48px;
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;
+    font-family:"IBM Plex Mono",monospace; font-size:11px; color:var(--ink-faint); letter-spacing:0.02em;
+  }
+</style>
+
+<svg class="grain" width="0" height="0">
+  <filter id="noiseFilter"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter>
+</svg>
+<div class="grain" style="filter:url(#noiseFilter)"></div>
+
+<nav class="top" id="siteNav">
+  <div class="word">RAYKAPAK <i>SİSTEM</i></div>
+  <div class="tag">Üretim · Cari · Maliyet</div>
+</nav>
+
+<div class="hero-stage">
+  <div class="mesh"></div>
+  <section class="wrap hero">
+    <div class="eyebrow">Alüminyum Doğrama Üretim Yazılımı</div>
+    <h1>Siparişten Fişe,<br><i>Kesintisiz.</i></h1>
+    <p class="sub">Profil kapaktan sürme raya, alüminyum fiyatından cari hesaba — üretiminizin tamamı tek sistemde birleşiyor.</p>
+  </section>
+
+  <div class="wrap showcase-wrap">
+    <div class="showcase" id="showcase">
+      <video autoplay muted loop playsinline preload="auto" poster="img/dashboard.png" aria-label="Raykapak Sistem kullanım videosu">
+        <source src="video/tanitim.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="showcase-cap">Gerçek ekran kaydı · örnek veridir</div>
+  </div>
+</div>
+
+<section class="wrap stats reveal">
+  <div class="stat-grid">
+    <div class="stat"><div class="n"><em>3</em></div><div class="d">Üretim hattı — Profil, Kulp &amp; LED, Sürme Ray</div></div>
+    <div class="stat"><div class="n">3<em>/</em>3</div><div class="d">PDF çıktı — atölye, cam ve muhasebe fişi anında</div></div>
+    <div class="stat"><div class="n">%<em>20</em></div><div class="d">KDV dahil canlı alüminyum maliyeti</div></div>
+    <div class="stat"><div class="n">TCMB <em>·</em> LME</div><div class="d">Kur ve alüminyum fiyatı, her açılışta güncel</div></div>
+  </div>
+</section>
+
+<section class="wrap narrative">
+  <div class="head reveal">
+    <div class="eyebrow">Neden Raykapak</div>
+    <h2>Atölyenin gerçek iş akışı, dijital bir sisteme dönüşüyor.</h2>
+  </div>
+  <div class="n-grid">
+    <div class="n-item reveal"><span class="num">01</span><p>Sipariş bilgisi WhatsApp'ta, ölçüler kağıt üzerinde, fiyat hesabı kafada kalıyor.</p></div>
+    <div class="n-item reveal"><span class="num">02</span><p>Ay sonunda hangi müşteride ne kadar alacak kaldığını bulmak saatler alıyor.</p></div>
+    <div class="n-item reveal"><span class="num">03</span><p>Alüminyum fiyatı her gün değişiyor ama maliyet hesabı geçen ayın rakamıyla yapılıyor.</p></div>
+  </div>
+</section>
+
+<section class="wrap feature">
+  <div class="copy reveal">
+    <div class="eyebrow-row"><span class="eyebrow">Üretim Girişi</span></div>
+    <h3>Üç üretim hattı, tek giriş ekranı</h3>
+    <p class="desc">Profil Kapak, Kulp &amp; LED Kanalı ve Sürme Ray Kapak için ayrı sekmeler. Ölçü girilir girilmez cam payı, alüminyum metrajı ve toplam tutar otomatik hesaplanır.</p>
+    <ul class="points">
+      <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Cam payı ve kesim ölçüsü otomatik hesaplanır, onaya sorulur</li>
+      <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Kaydedilince atölye fişi, cam fişi ve muhasebe fişi PDF olarak çıkar</li>
+      <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Müşteri &amp; temsilci bilgisi tüm üretim sekmeleri arasında senkron</li>
+    </ul>
+  </div>
+  <div class="gallery-col reveal">
+    <div class="plate">
+      <img src="img/siparis.png" alt="Profil Kapak Girişi ekranı, örnek bir sipariş sepeti ile">
+      <div class="cap"><span>Profil Kapak Girişi</span><span>Örnek veridir</span></div>
+    </div>
+    <div class="mini-gallery">
+      <div class="mini-plate">
+        <img src="img/kulp.png" alt="Kulp &amp; LED Kanalı ekranı, örnek bir kalem ile">
+        <div class="mini-cap">Kulp &amp; LED Kanalı</div>
+      </div>
+      <div class="mini-plate">
+        <img src="img/ray.png" alt="Sürme Ray Kapak ekranı, örnek bir kalem ile">
+        <div class="mini-cap">Sürme Ray Kapak</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="wrap feature flip">
+  <div class="copy reveal">
+    <div class="eyebrow-row"><span class="eyebrow">Fiyat Teklifi</span></div>
+    <h3>Sepetten tek tıkla teklif dökümü</h3>
+    <p class="desc">Sepetteki ürünleri, henüz sipariş haline getirmeden bir potansiyel müşteriye sunulacak resmi teklife dönüştürün — firma adı, yetkili kişi ve teklifi hazırlayan bilgisiyle.</p>
+    <ul class="points">
+      <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Üretim sekmelerindeki sepeti taslak olarak kaydeder</li>
+      <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Atölye/stok/sipariş sistemine dokunmaz — sadece bir fiyat dökümüdür</li>
+      <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Geçmiş teklifler daha sonra tekrar açılıp düzenlenebilir</li>
+    </ul>
+  </div>
+  <div class="plate reveal">
+    <img src="img/teklifler.png" alt="Teklifler ekranı, örnek bir teklif formu ile">
+    <div class="cap"><span>Teklifler</span><span>Örnek veridir</span></div>
+  </div>
+</section>
+
+<section class="wrap feature">
+  <div class="copy reveal">
+    <div class="eyebrow-row"><span class="eyebrow">Müşteri Cari Sistemi</span></div>
+    <h3>Her müşterinin geçmişi tek tıkla</h3>
+    <p class="desc">Bir müşteri seçin, tüm sipariş geçmişi ve toplam ciro anında karşınıza gelsin. Temsilci performansı ve en değerli müşteri sıralaması yönetici ekranında.</p>
+    <ul class="points">
+      <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Sipariş bazında kod, tarih, temsilci ve tutar dökümü</li>
+      <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Cari döküm PDF veya Excel/CSV olarak dışa aktarılır</li>
+      <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Müşteriye özel sabit iskonto profili ve cari kart notu</li>
+    </ul>
+  </div>
+  <div class="plate reveal">
+    <img src="img/cari.png" alt="Müşteri Cari Sistemi ekranı, örnek bir müşteri kartı ile">
+    <div class="cap"><span>Müşteri Cari Sistemi</span><span>Örnek veridir</span></div>
+  </div>
+</section>
+
+<section class="wrap feature flip">
+  <div class="copy reveal">
+    <div class="eyebrow-row"><span class="eyebrow">Canlı Maliyet</span><span class="badge">Yeni</span></div>
+    <h3>Alüminyum fiyatı değişince maliyetiniz de değişir</h3>
+    <p class="desc">LME'deki güncel alüminyum fiyatı (USD/ton) ve TCMB dolar kuru otomatik çekilir. İşçiliği siz girin, %20 KDV dahil TL/ton maliyet anında hesaplansın.</p>
+    <div class="formula"><span class="f">(Alüminyum <b>+</b> İşçilik) <b>×</b> Kur <b>×</b> 1,20</span><span class="f-note">KDV DAHİL · CANLI HESAP</span></div>
+  </div>
+  <div class="plate reveal">
+    <img src="img/aluminyum.png" alt="Alüminyum Maliyet Hesaplayıcı kartı, örnek fiyatlarla">
+    <div class="cap"><span>Alüminyum Maliyet Hesaplayıcı</span><span>Örnek veridir</span></div>
+  </div>
+</section>
+
+<section class="wrap feature">
+  <div class="copy reveal">
+    <div class="eyebrow-row"><span class="eyebrow">Sistem Analizi</span></div>
+    <h3>Ciro trendini ve kazandıran malzemeyi görün</h3>
+    <p class="desc">Bu ay / geçen ay ve bu ay / geçen yılın aynı ayı karşılaştırmaları; en çok ciro getiren malzemelerin dağılımı — tek ekranda.</p>
+    <ul class="points">
+      <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Aylık ciro trend grafiği (son 6 ay)</li>
+      <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>En çok ciro getiren 5 malzeme, oransal dağılım</li>
+      <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Tüm sistem detaylı malzeme analizi ve birim fiyat çarpanları</li>
+    </ul>
+  </div>
+  <div class="plate reveal">
+    <img src="img/analiz.png" alt="Genel Sistem Analizi ekranı, örnek ciro grafiği ile">
+    <div class="cap"><span>Genel Sistem Analizi</span><span>Örnek veridir</span></div>
+  </div>
+</section>
+
+<section class="wrap specs">
+  <div class="head reveal">
+    <div class="eyebrow">Teknik Özet</div>
+    <h2>Kurumsal ihtiyaçlar için hazır.</h2>
+  </div>
+  <div class="spec-list">
+    <div class="spec-item reveal">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M7 3h7l4 4v14a1 1 0 01-1 1H7a1 1 0 01-1-1V4a1 1 0 011-1z" stroke="currentColor" stroke-width="1.6"/><path d="M14 3v4h4M9 13h6M9 17h6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+      <div class="v">3 Fiş Türü</div><div class="d">Atölye · Cam · Muhasebe</div>
+    </div>
+    <div class="spec-item reveal">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="16" rx="1.5" stroke="currentColor" stroke-width="1.6"/><path d="M3 9h18M9 9v11" stroke="currentColor" stroke-width="1.6"/></svg>
+      <div class="v">Excel / CSV</div><div class="d">Cari döküm ve raporlar</div>
+    </div>
+    <div class="spec-item reveal">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="9" cy="8" r="3" stroke="currentColor" stroke-width="1.6"/><path d="M3.5 20c0-3.3 2.5-6 5.5-6s5.5 2.7 5.5 6M16 8.3a3 3 0 110 5.7M20.5 20c0-2.8-1.9-5.1-4.5-5.8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+      <div class="v">Yönetici · Temsilci</div><div class="d">Yetkiye göre ekran görünürlüğü</div>
+    </div>
+    <div class="spec-item reveal">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M3 12a9 9 0 0115.3-6.4M21 12a9 9 0 01-15.3 6.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M18.3 3.6V8h-4.4M5.7 20.4V16h4.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <div class="v">Otomatik Yedek</div><div class="d">Günlük, arka planda</div>
+    </div>
+    <div class="spec-item reveal">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M3 7h13M13 7l-3-3M13 7l-3 3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M21 17H8M8 17l3-3M8 17l3 3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <div class="v">TCMB · LME</div><div class="d">Kur ve alüminyum fiyatı, canlı</div>
+    </div>
+  </div>
+</section>
+
+<section class="wrap closing">
+  <div class="mesh2"></div>
+  <div class="eyebrow reveal" style="justify-content:center;">Başlayın</div>
+  <h2 class="reveal">Atölyenizi bir sonraki siparişten itibaren dijitalleştirin.</h2>
+  <p class="reveal">Kağıda yazılan ölçü, telefonda kalan sipariş, ay sonunda bulunamayan alacak — Raykapak Sistem bunların hepsini tek ekrana taşımak için kuruldu.</p>
+  <a class="contact-btn reveal" href="https://instagram.com/erdoganmemis" target="_blank" rel="noopener">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="1.7"/><circle cx="12" cy="12" r="4.2" stroke="currentColor" stroke-width="1.7"/><circle cx="17.3" cy="6.7" r="1.1" fill="currentColor"/></svg>
+    İletişim · @erdoganmemis
+  </a>
+  <div class="note reveal">Bu sayfadaki ekran görüntüleri ürünün gerçek arayüzüdür; görünen müşteri adları ve tutarlar tanıtım amacıyla oluşturulmuş örnek verilerdir.</div>
+</section>
+
+<div class="wrap"><footer class="site">
+  <span>RAYKAPAK SİSTEM</span>
+  <span>Alüminyum Doğrama Üretim &amp; Cari Takip Yazılımı</span>
+</footer></div>
+
+<script>
+(function(){
+  var nav = document.getElementById('siteNav');
+  var onScroll = function(){
+    if (window.scrollY > 12) nav.classList.add('scrolled'); else nav.classList.remove('scrolled');
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!reduce && 'IntersectionObserver' in window) {
+    var els = Array.prototype.slice.call(document.querySelectorAll('.reveal'));
+    els.forEach(function(el){ el.classList.add('pre'); });
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (e.isIntersecting) { e.target.classList.remove('pre'); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.01, rootMargin: '0px 0px -4% 0px' });
+    els.forEach(function(el){ io.observe(el); });
+  }
+
+  var showcase = document.getElementById('showcase');
+  if (showcase && window.matchMedia('(pointer: fine)').matches && !reduce) {
+    var bounds;
+    showcase.addEventListener('mouseenter', function(){ bounds = showcase.getBoundingClientRect(); });
+    showcase.addEventListener('mousemove', function(ev){
+      if (!bounds) bounds = showcase.getBoundingClientRect();
+      var px = (ev.clientX - bounds.left) / bounds.width - 0.5;
+      var py = (ev.clientY - bounds.top) / bounds.height - 0.5;
+      showcase.style.transform = 'rotateY(' + (px * 5) + 'deg) rotateX(' + (py * -5) + 'deg)';
+    });
+    showcase.addEventListener('mouseleave', function(){ showcase.style.transform = 'rotateY(0deg) rotateX(0deg)'; });
+  }
+})();
+</script>
+
+</body></html>
