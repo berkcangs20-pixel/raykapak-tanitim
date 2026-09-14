@@ -312,7 +312,20 @@
     display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;
     font-family:"IBM Plex Mono",monospace; font-size:11px; color:var(--ink-faint); letter-spacing:0.02em;
   }
-  footer.site .visit-counter{display:block; border-radius:4px; opacity:0.85;}
+  footer.site .visit-counter{
+    display:inline-flex; align-items:center; gap:7px;
+    padding:6px 13px; border:1px solid var(--line); border-radius:999px;
+    background:var(--surface); font-family:"IBM Plex Mono",monospace; font-size:11px;
+    color:var(--ink-faint); letter-spacing:0.02em;
+  }
+  footer.site .visit-counter svg{flex:none; color:var(--accent);}
+  footer.site .visit-counter b{color:var(--ink); font-weight:600; font-variant-numeric:tabular-nums;}
+  @keyframes pulse-dot{0%,100%{opacity:1;} 50%{opacity:0.35;}}
+  footer.site .visit-counter .dot{
+    width:6px; height:6px; border-radius:50%; background:var(--accent); flex:none;
+    animation:pulse-dot 2.2s ease-in-out infinite;
+  }
+  @media (prefers-reduced-motion:reduce){ footer.site .visit-counter .dot{animation:none;} }
 </style>
 
 <svg class="grain" width="0" height="0">
@@ -501,7 +514,10 @@
 <div class="wrap"><footer class="site">
   <span>RAYKAPAK SİSTEM</span>
   <span>Alüminyum Doğrama Üretim &amp; Cari Takip Yazılımı</span>
-  <img class="visit-counter" src="https://visitor-badge.laobi.icu/badge?page_id=berkcangs20-pixel.raykapak-tanitim&amp;left_color=%23171f2b&amp;right_color=%233fa9c9&amp;left_text=ziyaret%C3%A7i" alt="ziyaretçi sayacı" width="104" height="20" loading="lazy">
+  <span class="visit-counter" id="visitCounter">
+    <span class="dot" aria-hidden="true"></span>
+    <b id="visitCount">···</b>&nbsp;ziyaretçi
+  </span>
 </footer></div>
 
 <script>
@@ -536,6 +552,17 @@
       showcase.style.transform = 'rotateY(' + (px * 5) + 'deg) rotateX(' + (py * -5) + 'deg)';
     });
     showcase.addEventListener('mouseleave', function(){ showcase.style.transform = 'rotateY(0deg) rotateX(0deg)'; });
+  }
+
+  var countEl = document.getElementById('visitCount');
+  if (countEl) {
+    fetch('https://abacus.jasoncameron.dev/hit/raykapak-sistem/site-ziyaret')
+      .then(function(r){ return r.json(); })
+      .then(function(d){ countEl.textContent = Number(d.value).toLocaleString('tr-TR'); })
+      .catch(function(){
+        var wrap = document.getElementById('visitCounter');
+        if (wrap) wrap.style.display = 'none';
+      });
   }
 })();
 </script>
