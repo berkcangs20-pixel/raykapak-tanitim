@@ -316,6 +316,40 @@
   .contact-btn:hover{background:var(--accent); color:var(--bg);}
   .contact-btn svg{flex:none;}
 
+  /* ---------- ön kayıt formu ---------- */
+  .form-plate{padding:30px 28px 28px;}
+  .preorder-form{display:flex; flex-direction:column; gap:16px;}
+  .f-row{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
+  @media (max-width:520px){ .f-row{grid-template-columns:1fr;} }
+  .f-field{display:flex; flex-direction:column; gap:7px;}
+  .f-field label{
+    font-family:"IBM Plex Mono",monospace; font-size:11px; letter-spacing:0.06em;
+    text-transform:uppercase; color:var(--ink-faint);
+  }
+  .f-field input, .f-field textarea{
+    width:100%; font:inherit; font-size:14.5px; color:var(--ink);
+    background:var(--surface-2); border:1px solid var(--line); border-radius:9px;
+    padding:11px 13px; transition:border-color .15s ease, box-shadow .15s ease;
+  }
+  .f-field textarea{resize:vertical; min-height:64px; font-family:inherit;}
+  .f-field input::placeholder, .f-field textarea::placeholder{color:var(--ink-faint);}
+  .f-field input:focus, .f-field textarea:focus{
+    outline:none; border-color:var(--accent); box-shadow:0 0 0 3px color-mix(in oklab, var(--accent) 22%, transparent);
+  }
+  .preorder-submit{
+    margin-top:4px; padding:13px 20px; border-radius:9px; border:1px solid var(--accent);
+    background:var(--accent); color:var(--bg); font-family:"IBM Plex Sans",sans-serif;
+    font-size:14.5px; font-weight:700; cursor:pointer; transition:opacity .15s ease, transform .15s ease;
+  }
+  .preorder-submit:hover{opacity:0.9;}
+  .preorder-submit:active{transform:scale(0.99);}
+  .preorder-submit:disabled{opacity:0.6; cursor:default;}
+  .preorder-status{
+    font-family:"IBM Plex Mono",monospace; font-size:12.5px; padding:10px 13px; border-radius:8px;
+  }
+  .preorder-status.ok{background:color-mix(in oklab, var(--accent) 16%, transparent); color:var(--accent);}
+  .preorder-status.err{background:color-mix(in oklab, #E5484D 16%, transparent); color:#E5484D;}
+
   footer.site{
     border-top:1px solid var(--line); padding:32px 0 48px;
     display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;
@@ -508,6 +542,51 @@
   </div>
 </section>
 
+<section class="wrap feature" id="onkayit">
+  <div class="copy reveal">
+    <div class="eyebrow-row"><span class="eyebrow">Ön Kayıt</span></div>
+    <h3>Sıradaki üretim döneminde yerinizi ayırtın</h3>
+    <p class="desc">Formu doldurun, ekibimiz kısa sürede sizi arayıp kurulum ve fiyatlandırma detaylarını birlikte netleştirsin.</p>
+    <ul class="points">
+      <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Kurulum genelde aynı gün içinde tamamlanır</li>
+      <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Mevcut sipariş/cari verileriniz varsa aktarımda yardımcı oluruz</li>
+      <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Yükümlülük yok — önce demo görüşmesi, sonra karar</li>
+    </ul>
+  </div>
+  <div class="plate form-plate reveal">
+    <form class="preorder-form" id="preorderForm" action="https://formspree.io/f/myezyoed" method="POST">
+      <div class="f-row">
+        <div class="f-field">
+          <label for="pf-ad">Ad Soyad</label>
+          <input id="pf-ad" name="Ad Soyad" type="text" required autocomplete="name">
+        </div>
+        <div class="f-field">
+          <label for="pf-tel">Telefon</label>
+          <input id="pf-tel" name="Telefon" type="tel" required autocomplete="tel" placeholder="05xx xxx xx xx">
+        </div>
+      </div>
+      <div class="f-row">
+        <div class="f-field">
+          <label for="pf-eposta">E-posta</label>
+          <input id="pf-eposta" name="E-posta" type="email" autocomplete="email">
+        </div>
+        <div class="f-field">
+          <label for="pf-firma">Firma / İşletme Adı</label>
+          <input id="pf-firma" name="Firma" type="text" autocomplete="organization">
+        </div>
+      </div>
+      <div class="f-field">
+        <label for="pf-not">Not / Mesaj</label>
+        <textarea id="pf-not" name="Not" rows="3" placeholder="Kaç kullanıcı, hangi üretim hattı vb. (opsiyonel)"></textarea>
+      </div>
+      <input type="hidden" name="_subject" value="AL13 Premium Sistem — Yeni Ön Kayıt">
+      <input type="text" name="_gotcha" style="position:absolute; left:-9999px" tabindex="-1" autocomplete="off">
+      <button type="submit" class="preorder-submit" id="preorderSubmitBtn">Ön Kaydımı Gönder</button>
+      <div class="preorder-status" id="preorderStatus" hidden></div>
+    </form>
+  </div>
+</section>
+
 <section class="wrap closing">
   <div class="mesh2"></div>
   <div class="eyebrow reveal" style="justify-content:center;">Başlayın</div>
@@ -561,6 +640,35 @@
       showcase.style.transform = 'rotateY(' + (px * 5) + 'deg) rotateX(' + (py * -5) + 'deg)';
     });
     showcase.addEventListener('mouseleave', function(){ showcase.style.transform = 'rotateY(0deg) rotateX(0deg)'; });
+  }
+
+  var preorderForm = document.getElementById('preorderForm');
+  if (preorderForm) {
+    var btn = document.getElementById('preorderSubmitBtn');
+    var status = document.getElementById('preorderStatus');
+    preorderForm.addEventListener('submit', function(ev){
+      ev.preventDefault();
+      btn.disabled = true; btn.textContent = 'Gönderiliyor...';
+      status.hidden = true; status.className = 'preorder-status';
+      fetch(preorderForm.action, {
+        method: 'POST',
+        body: new FormData(preorderForm),
+        headers: { 'Accept': 'application/json' }
+      }).then(function(r){
+        if (r.ok) {
+          preorderForm.reset();
+          status.textContent = 'Teşekkürler! Kaydınız alındı, en kısa sürede size dönüş yapacağız.';
+          status.classList.add('ok'); status.hidden = false;
+          btn.textContent = 'Gönderildi ✓';
+        } else {
+          throw new Error('submit failed');
+        }
+      }).catch(function(){
+        status.textContent = 'Bir şeyler ters gitti. Lütfen tekrar deneyin ya da Instagram üzerinden bize ulaşın.';
+        status.classList.add('err'); status.hidden = false;
+        btn.disabled = false; btn.textContent = 'Ön Kaydımı Gönder';
+      });
+    });
   }
 
   var countEl = document.getElementById('visitCount');
