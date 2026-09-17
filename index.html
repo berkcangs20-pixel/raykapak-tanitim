@@ -28,6 +28,70 @@
   "url": "https://berkcangs20-pixel.github.io/raykapak-tanitim/"
 }
 </script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "AL13 Premium Sistem tam olarak ne yapar?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "AL13 Premium Sistem, alüminyum doğrama atölyeleri için üretim, sipariş ve müşteri cari takibini tek bir masaüstü programında birleştiren bir yazılımdır. Profil Kapak, Kulp & LED Kanalı ve Sürme Ray Kapak üretim hatlarını destekler."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Hangi üretim hatlarını destekliyor?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Üç üretim hattı desteklenir: Profil Kapak Girişi, Kulp & LED Kanalı ve Sürme Ray Kapak. Ölçü girilince cam payı, alüminyum metrajı ve toplam tutar otomatik hesaplanır."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Alüminyum maliyeti nasıl hesaplanıyor?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "LME'deki güncel alüminyum fiyatı (USD/ton) ve TCMB dolar kuru otomatik çekilir. İşçilik maliyeti girildiğinde, %20 KDV dahil TL/ton maliyet anında hesaplanır."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Müşteri cari (borç/alacak) takibi var mı?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Evet. Her müşterinin tüm sipariş geçmişi ve toplam cirosu tek tıkla görüntülenir; cari döküm PDF veya Excel/CSV olarak dışa aktarılabilir."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Kurulum ne kadar sürer?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Kurulum genellikle aynı gün içinde tamamlanır. Mevcut sipariş veya cari verileriniz varsa aktarım sürecinde yardımcı olunur."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "AL13 Premium Sistem hangi işletim sisteminde çalışır?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Windows işletim sisteminde çalışan bir masaüstü uygulamasıdır."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Verilerim yedekleniyor mu?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Evet, günlük otomatik yedekleme arka planda çalışır."
+      }
+    }
+  ]
+}
+</script>
 
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-W4RBWXK82M"></script>
@@ -343,6 +407,29 @@
   .contact-btn:hover{background:var(--accent); color:var(--bg);}
   .contact-btn svg{flex:none;}
 
+  /* ---------- SSS ---------- */
+  .faq{padding:30px 0 100px; border-top:1px solid var(--line);}
+  .faq .head{max-width:52ch; margin-bottom:40px;}
+  .faq .head h2{font-size:clamp(26px,3.6vw,38px); margin-top:18px;}
+  .faq-list{display:flex; flex-direction:column; gap:12px; max-width:760px;}
+  .faq-item{
+    border-radius:14px; background:var(--surface); border:1px solid var(--line);
+    padding:0 22px; transition:border-color .2s ease;
+  }
+  .faq-item[open]{border-color:var(--accent-dim);}
+  .faq-item summary{
+    padding:18px 0; cursor:pointer; list-style:none; font-family:"Archivo",sans-serif;
+    font-size:16px; font-weight:600; color:var(--ink); display:flex; align-items:center;
+    justify-content:space-between; gap:16px;
+  }
+  .faq-item summary::-webkit-details-marker{display:none;}
+  .faq-item summary::after{
+    content:"+"; flex:none; font-family:"IBM Plex Mono",monospace; font-size:20px; font-weight:400;
+    color:var(--accent); transition:transform .2s ease;
+  }
+  .faq-item[open] summary::after{transform:rotate(45deg);}
+  .faq-item p{margin:0 0 20px; color:var(--ink-soft); font-size:14.5px; line-height:1.7;}
+
   /* ---------- ön kayıt formu ---------- */
   .form-plate{padding:30px 28px 28px;}
   .preorder-form{display:flex; flex-direction:column; gap:16px;}
@@ -567,6 +654,43 @@
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M3 7h13M13 7l-3-3M13 7l-3 3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M21 17H8M8 17l3-3M8 17l3 3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
       <div class="v">TCMB · LME</div><div class="d">Kur ve alüminyum fiyatı, canlı</div>
     </div>
+  </div>
+</section>
+
+<section class="wrap faq" id="sss">
+  <div class="head reveal">
+    <div class="eyebrow">Sık Sorulan Sorular</div>
+    <h2>Merak ettikleriniz.</h2>
+  </div>
+  <div class="faq-list">
+    <details class="faq-item reveal">
+      <summary>AL13 Premium Sistem tam olarak ne yapar?</summary>
+      <p>Alüminyum doğrama atölyeleri için üretim, sipariş ve müşteri cari takibini tek bir masaüstü programında birleştiren bir yazılımdır. Profil Kapak, Kulp &amp; LED Kanalı ve Sürme Ray Kapak üretim hatlarını destekler.</p>
+    </details>
+    <details class="faq-item reveal">
+      <summary>Hangi üretim hatlarını destekliyor?</summary>
+      <p>Üç üretim hattı desteklenir: Profil Kapak Girişi, Kulp &amp; LED Kanalı ve Sürme Ray Kapak. Ölçü girilince cam payı, alüminyum metrajı ve toplam tutar otomatik hesaplanır.</p>
+    </details>
+    <details class="faq-item reveal">
+      <summary>Alüminyum maliyeti nasıl hesaplanıyor?</summary>
+      <p>LME'deki güncel alüminyum fiyatı (USD/ton) ve TCMB dolar kuru otomatik çekilir. İşçilik maliyeti girildiğinde, %20 KDV dahil TL/ton maliyet anında hesaplanır.</p>
+    </details>
+    <details class="faq-item reveal">
+      <summary>Müşteri cari (borç/alacak) takibi var mı?</summary>
+      <p>Evet. Her müşterinin tüm sipariş geçmişi ve toplam cirosu tek tıkla görüntülenir; cari döküm PDF veya Excel/CSV olarak dışa aktarılabilir.</p>
+    </details>
+    <details class="faq-item reveal">
+      <summary>Kurulum ne kadar sürer?</summary>
+      <p>Kurulum genellikle aynı gün içinde tamamlanır. Mevcut sipariş veya cari verileriniz varsa aktarım sürecinde yardımcı olunur.</p>
+    </details>
+    <details class="faq-item reveal">
+      <summary>AL13 Premium Sistem hangi işletim sisteminde çalışır?</summary>
+      <p>Windows işletim sisteminde çalışan bir masaüstü uygulamasıdır.</p>
+    </details>
+    <details class="faq-item reveal">
+      <summary>Verilerim yedekleniyor mu?</summary>
+      <p>Evet, günlük otomatik yedekleme arka planda çalışır.</p>
+    </details>
   </div>
 </section>
 
